@@ -1,0 +1,145 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_booste/booste_steps.mustache
+
+
+    Example context (json):
+    {
+        canedit: true,
+        elements:  [ 
+            id: 1, 
+            booste: 50, 
+            idx: 1, 
+            name: "test" 
+            elements: [ { 
+                id: 1, 
+                booste_step: 47, 
+                name: "test", 
+                element_type: "guideline", 
+                element: 23,  
+                module: 16, 
+                idx: 2 
+            } ]
+        ]
+    }
+}}
+<div class="local-booste-steps">
+    <ul id="local-booste-steps" class="mt-2">
+        {{#elements}}
+        <li>
+            <h5 id="step_number_{{id}}" class="fheader">
+                {{name}}
+                {{#canedit}}
+                    <a role="button" class="optionaction"  id="id_booste_step" name="booste_step" data-action="editboostepopup" data-formname="booste_step" data-id="{{booste}}" data-editid="{{id}}">
+                        {{#pix}} t/edit, core, {{#str}} edit_step, local_booste{{/str}} {{/pix}}
+                    </a>
+                {{/canedit}}
+            </h5>
+            <div id="step_{{id}}_elements_list" name="elements_list">
+
+                <ul class="list-group booste-elements-draggable-list">
+                    {{#elements}}
+
+                    <li class="list-group-item" data-id={{id}} data-step={{booste_step}} data-idx={{idx}} >
+                        <table id="local-booste-elements">
+                            <tr>
+                            <td class="local-booste-tab-button">
+                                {{#canedit}}
+                                <span tabindex="{{idx}}" role="button" aria-haspopup="true" data-drag-type="move">
+                                    <i class="fa fa-arrows"></i>
+                                </span>
+                                {{/canedit}}
+                            </td>
+                            <td class="local-booste-tab-content">
+                                <p id="{{element_type}}_{{id}}">{{element_type}} : {{name}}</p>
+                            </td>
+                            <td class="local-booste-tab-button">
+                                {{#canedit}}
+                                <a role="button" class="optionaction" id="id_{{element_type}}" data-formname="element" data-action="editboostepopup" data-id="{{booste_step}}" data-editid="{{id}}">
+                                    {{#pix}} t/edit, core, {{#str}} edit_element, local_booste{{/str}} {{/pix}}
+                                </a>
+                                {{/canedit}}
+                            </td>
+                            <td class="local-booste-tab-button">
+                                {{#canedit}}
+                                <a role="button" class="optionaction" id="id_{{element_type}}" name="element" data-action="delete" data-id="{{id}}" data-booste="{{booste_step}}">
+                                    {{#pix}} t/delete, core, {{#str}} delete_element, local_booste{{/str}}  {{/pix}}
+                                </a>
+                                {{/canedit}}
+                            </td>
+                        </tr>
+                        </table>
+
+                    </li>
+                    {{/elements}}
+
+                </ul>
+            </div>
+            {{#canedit}}
+                <a role="button" class="btn btn-primary" id="id_guideline_{{id}}" data-action="add_guideline" data-sectionid="0" data-sectionreturnid="" data-id="{{id}}">{{#str}} add_guideline, local_booste {{/str}} </a>
+                <a role="button" class="btn btn-primary" id="id_resource_{{id}}" data-action="add_resource" data-sectionid="0" data-sectionreturnid="" data-id="{{id}}">{{#str}} add_resource, local_booste {{/str}}</a>
+                <a role="button" class="btn btn-primary" id="id_activity_{{id}}" data-action="add_activity" data-sectionid="0" data-sectionreturnid="" data-id="{{id}}">{{#str}} add_activity, local_booste {{/str}}</a>
+                </br>
+                <a role="button" class="optionaction"  name="booste_step" data-action="delete" data-id="{{id}}" data-booste="{{booste}}">
+                    {{#pix}} t/delete, core, {{#str}} delete_booste_step, local_booste{{/str}} {{/pix}}
+                </a>
+            {{/canedit}}
+        </li>
+        {{/elements}}
+    </ul>
+</div>
+{{#js}}
+
+    var urlParams = new URLSearchParams(window.location.search);
+
+    {{#canedit}}
+    document.getElementById("id_booste_step").setAttribute("data-id", urlParams.get("booste"));
+    
+    require(['local_booste/activity_form'], function(Booste_step) {
+        Booste_step.createGuideline();
+    });
+
+    require(['local_booste/delete_data'], function(Booste_step) {
+        Booste_step.init("element");
+        Booste_step.init("booste_step");
+    });
+
+    require(['local_booste/popup_form'], function(Booste_step) {
+        Booste_step.init("element");
+        Booste_step.init("booste_step");
+    });
+    
+    require(
+        [
+            'jquery',
+            'core/sortable_list',
+            'local_booste/helper',
+        ],
+        function(
+            $,
+            SortableList,
+            Element
+        ) {
+            new SortableList('ul.booste-elements-draggable-list');
+            $('#local-booste-steps').on(SortableList.EVENTS.DROP, function(evt) {
+                Element.saveOrder(evt);
+            });
+        });
+    {{/canedit}}
+
+{{/js}}

@@ -1,0 +1,120 @@
+
+.local-booste-contents tr {
+    border: 1px solid grey; 
+    border-spacing: 10px;
+    padding-bottom: 1em;
+    width: 60%;
+}
+
+.local-booste-tab-content {
+    width: 95%;
+}
+
+.local-booste-tab-button {
+    width: 5%;
+}
+
+.local-booste-steps {
+    list-style-type: none;
+}
+
+.local-booste-match {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+
+    background: rgb(255, 255, 255);
+    border: 1px solid #666;
+    text-align: center;
+}
+
+.local-booste-elements {
+    list-style-type: none;
+}
+
+.local-booste-contents.tbl th {
+    background-color: #cccccc;
+    padding: 8px;
+}
+
+.v-list {
+    list-style-type: none;
+}
+
+.local-booste-badge {
+    font-size: 100%;
+}
+
+.objective-verb-1 {
+    color: rgb(24, 160, 214);
+}
+.objective-verb-2 {
+    color: green;
+}
+
+.lm-icon {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 8px;
+}
+
+.learning-mode {
+    text-align: center;
+}
+
+.learning-mode img {
+    display: block;
+    margin: 0 auto;
+}
+
+.loader {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #292929;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+
+.overlay {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(127, 127, 127, 0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+  button.selected {
+    border: solid red 2px;
+  }
+/* Centre la rangée de boutons d'action des formulaires */
+.mform .fitem_actionbuttons .felement,
+.mform .fitem_fgroup .felement {
+    text-align: center;
+}
+
+/* Garde les boutons sur une ligne et centrés proprement */
+.mform .fitem_actionbuttons .felement > div,
+.mform .fitem_fgroup .felement > div {
+    display: inline-flex;
+    justify-content: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+}

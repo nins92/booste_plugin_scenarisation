@@ -1,0 +1,115 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_booste/activitychooser
+
+    Chooser dialog template.
+
+    Example context (json):
+    {
+        "title": "Chooser title",
+        "options": {
+            "label": "Option name",
+            "description": "Option description",
+            "urls": {
+                "addoption": "http://addoptionurl.com"
+            },
+            "icon": "<img class='icon' src='http://urltooptionicon'>"
+        }
+    }
+}}
+
+<div data-region="carousel" class="carousel slide d-flex flex-fill">
+    <div class="carousel-inner d-flex flex-fill" aria-live="polite">
+        <div class="carousel-item p-3 active" data-region="modules">
+            <div class="modchoosercontainer d-flex flex-column flex-fill" aria-label="{{#str}} activitymodules, core {{/str}}">
+                <div class="searchcontainer mb-3">
+                    {{>core_course/local/activitychooser/search}}
+                </div>
+                <div data-region="chooser-container" class="chooser-container">
+                    <div class="nav nav-tabs flex-shrink-0 z-index-1" id="activities-{{uniqid}}" role="tablist">
+                        <a class="nav-item nav-link {{#fallback}}active{{/fallback}} {{#activitiesFirst}}active{{/activitiesFirst}} {{^showActivities}}d-none{{/showActivities}}"
+                           id="activity-tab-{{uniqid}}"
+                           data-toggle="tab"
+                           data-region="activity-tab-nav"
+                           href="#activity-{{uniqid}}"
+                           role="tab"
+                           aria-label="{{#str}} ext_activities, core {{/str}}"
+                           aria-controls="activity-{{uniqid}}"
+                           aria-selected="{{#activitiesFirst}}true{{/activitiesFirst}}{{^activitiesFirst}}false{{/activitiesFirst}}"
+                           tabindex="{{#activitiesFirst}}0{{/activitiesFirst}}{{^activitiesFirst}}-1{{/activitiesFirst}}"
+                        >
+                            {{#str}} activities, core {{/str}}
+                        </a>
+                        <a class="nav-item nav-link {{^ext_activities}}d-none{{/ext_activities}}"
+                           id="ext-activity-tab-{{uniqid}}"
+                           data-toggle="tab"
+                           data-region="ext-activity-tab-nav"
+                           href="#ext-activity-{{uniqid}}"
+                           role="tab"
+                           aria-label="{{#str}} ext_activities, local_booste {{/str}}"
+                           aria-controls="ext-activity-{{uniqid}}"
+                           aria-selected="false"
+                           tabindex="-1"
+                        >
+                            {{#str}} ext_activities, local_booste {{/str}}
+                        </a>
+                        <a class="nav-item nav-link {{^recommended}}d-none{{/recommended}}"
+                           id="recommended-tab-{{uniqid}}"
+                           data-region="recommended-tab-nav"
+                           data-toggle="tab"
+                           href="#recommended-{{uniqid}}"
+                           role="tab"
+                           aria-label="{{#str}} aria:recommendedtab, core_course {{/str}}"
+                           aria-controls="recommended-{{uniqid}}"
+                           aria-selected="false"
+                           tabindex="-1"
+                        >
+                            {{#str}} recommended, core {{/str}}
+                        </a>
+                    </div>
+                    <div class="tab-content flex-fill border-left border-right border-bottom bg-light" id="tabbed-activities-{{uniqid}}">
+                        <div class="tab-pane {{#fallback}}active{{/fallback}} {{#activitiesFirst}}active{{/activitiesFirst}}" id="activity-{{uniqid}}" data-region="activity" role="tabpanel" aria-labelledby="activity-tab-{{uniqid}}">
+                            <div class="optionscontainer d-flex flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
+                                {{#activities}}
+                                    {{>local_booste/activity}}
+                                {{/activities}}
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="ext-activity-{{uniqid}}" data-region="ext-activity" role="tabpanel" aria-labelledby="ext-activity-tab-{{uniqid}}">
+                            <div class="optionscontainer d-flex flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
+                                {{#ext_activities}}
+                                    {{>local_booste/activity}}
+                                {{/ext_activities}}
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="recommended-{{uniqid}}" data-region="recommended" role="tabpanel" aria-labelledby="recommended-tab-{{uniqid}}">
+                            <div class="optionscontainer d-flex flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
+                                {{#recommended}}
+                                    {{>local_booste/activity}}
+                                {{/recommended}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item" data-region="help"></div>
+        <!--The following div is used as a place for additional plugins to have widgets in the chooser.-->
+        <div class="carousel-item" data-region="pluginCarousel"></div>
+    </div>
+</div>

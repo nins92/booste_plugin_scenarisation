@@ -1,0 +1,63 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_booste/objectives.mustache
+
+
+    Example context (json):
+    {
+        canedit: true,
+        elements: [ { 
+            id: 1, 
+            booste: 47, 
+            objective_sentence: "test" 
+        } ]
+    }
+}}
+<div class="local-booste-objectives">
+    <table id="local-booste-objectives" class="flexible table table-striped table-hover generaltable generalbox">
+        {{#elements}}
+            <tr>
+                <td class="local-booste-tab-content">
+                    <p id="objective_{{id}}" data-taxonomy="{{taxonomy_name}}">{{objective_sentence}}</p>
+                </td>
+                <td class="local-booste-tab-button">
+                    {{#canedit}}
+                    <a role="button" class="optionaction" id="id_objective" name="objective" data-action="editboostepopup" data-formname="objective" data-id="{{booste}}" data-editid="{{id}}" data-booste="{{booste}}">
+                        {{#pix}} t/edit, core, {{#str}} edit_objective, local_booste{{/str}} {{/pix}}
+                    </a>
+                    {{/canedit}}
+                </td>
+                <td class="local-booste-tab-button">
+                    {{#canedit}}
+                    <a role="button" class="optionaction" id="id_objective" name="objective" data-action="delete" data-id="{{id}}" data-booste="{{booste}}">
+                        {{#pix}} t/delete, core, {{#str}} delete_objective, local_booste{{/str}} {{/pix}}
+                    </a>
+                    {{/canedit}}
+                </td>
+            </tr>
+        {{/elements}}
+    </table>
+</div>
+{{#js}}
+    require(['local_booste/delete_data'], function(Objective) {
+        Objective.init("objective");
+    });
+    require(['local_booste/popup_form'], function(Objective) {
+        Objective.init("objective");
+    });
+{{/js}}
