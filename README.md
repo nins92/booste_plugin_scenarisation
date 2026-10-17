@@ -13,13 +13,13 @@ Learn more about BOOSTE : https://savoir.ensam.eu/moodle/course/view.php?id=1070
 
 ## Installation
 Prerequisites :
-<br>• Moodle version :	Moodle 3.11.8 or later version (4.0 – 4.1 – 4.2 – 4.3)
-<br>• PHP version :	Minimum PHP 8.0.0 
-<br>• MySQL version :	Minimum 8.0
-<br>• Sodium PHP extension : Require 
-<br>• PHP max_input_vars parameter need to be greater or equal to 5000
-
-Installation :
+<br>• Moodle version :	Moodle 5 or later version 
+<br>• PHP version: Minimum PHP 8.2.0 for Moodle 5.0/5.1; PHP 8.3.0 minimum for Moodle 5.2/5.3
+<br>• MySQL version: Minimum 8.4
+<br>• PHP Sodium extension: Required
+<br>• PHP max_input_vars parameter: Must be greater than or equal to 5000
+<br>• PHP architecture: 64-bit required
+<br>Installation :
 <br>• To install the BOOSTE plugin, go to the Administration of your Moodle platform. In the Plugins tab, click on Install plugins. 
 <br>• Choose to install from a ZIP file; there are two methods to add this file: either by clicking on the Choose a file button, or by dragging the file into the designated drop zone. 
 <br>• The installation begins with a series of checks to ensure that all conditions are met to install the plugin. Once validation is complete, click the Continue button to proceed with the installation. 
